@@ -1,0 +1,61 @@
+Phase: Synonyms
+Input:  Token Entity
+Options: control = appelt debug = true  
+
+Rule: Synonyms
+({Token within Entity})
+:entity
+-->
+{  
+FeatureMap features = Factory.newFeatureMap();  
+AnnotationSet entity = bindings.get("entity");    
+Iterator it = entity.iterator(); 
+String string = null;
+ArrayList synonyms = null;
+
+while (it.hasNext()) { 
+   Annotation entityAnn = (Annotation) it.next();
+   string = (String) entityAnn.getFeatures().get("string");
+   synonyms = (ArrayList) entityAnn.getFeatures().get("synonyms");
+	 if(synonyms != null){
+      System.out.println("here are synonyms " + synonyms);
+   }
+}
+if(string != null){
+      System.out.println("entity is " + string);
+			features.put("string",string);
+			}
+features.put("rule", "Synonyms1"); 
+features.put("synonyms",synonyms);
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "Synonyms", features);  
+}
+
+Rule: Synonyms
+({Token within EntityValue})
+:entityValue
+-->
+{  
+FeatureMap features = Factory.newFeatureMap();  
+AnnotationSet entityValue = bindings.get("entityValue");   
+Iterator it = entityValue.iterator(); 
+String string = null;
+ArrayList synonyms = null;
+
+while (it.hasNext()) { 
+   Annotation entityValueAnn = (Annotation) it.next();
+   string = (String) entityValueAnn.getFeatures().get("string");
+   synonyms = (ArrayList) entityValueAnn.getFeatures().get("synonyms");
+	 if(!(synonyms != null)){
+      System.out.println("here are synonyms " + synonyms);
+   }
+}
+if(string != null){
+      System.out.println("entity value is " + string);
+			features.put("string",string);
+			}
+features.put("rule", "Synonyms2"); 
+features.put("synonyms",synonyms);
+outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
+                              "Synonyms", features);  
+}

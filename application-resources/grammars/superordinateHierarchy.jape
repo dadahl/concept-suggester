@@ -1,0 +1,61 @@
+Phase: SuperordinateHierarchy
+Input:  Token Entity
+Options: control = appelt debug = true  
+
+Rule: Superordinate
+({Token within Entity})
+:entity
+-->
+{  
+FeatureMap features = Factory.newFeatureMap();  
+AnnotationSet entity = bindings.get("entity");    
+Iterator it = entity.iterator(); 
+String string = null;
+ArrayList hypernyms = null;
+
+while (it.hasNext()) { 
+   Annotation entityAnn = (Annotation) it.next();
+   string = (String) entityAnn.getFeatures().get("string");
+   hypernyms = (ArrayList) entityAnn.getFeatures().get("hypernyms");
+	 if(hypernyms != null){
+      System.out.println("this is a kind of " + hypernyms);
+   }
+}
+if(string != null){
+      System.out.println("entity is " + string);
+			features.put("string",string);
+			}
+features.put("rule", "Subordinate1"); 
+features.put("hypernyms",hypernyms);
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "Superordinate", features);  
+}
+
+Rule: Superordinate
+({Token within EntityValue})
+:entityValue
+-->
+{  
+FeatureMap features = Factory.newFeatureMap();  
+AnnotationSet entityValue = bindings.get("entityValue");   
+Iterator it = entityValue.iterator(); 
+String string = null;
+ArrayList hypernyms = null;
+
+while (it.hasNext()) { 
+   Annotation entityValueAnn = (Annotation) it.next();
+   string = (String) entityValueAnn.getFeatures().get("string");
+   hypernyms = (ArrayList) entityValueAnn.getFeatures().get("hypernyms");
+	 if(!(hypernyms != null)){
+      System.out.println("this is a kind of " + hypernyms);
+   }
+}
+if(string != null){
+      System.out.println("entity value is " + string);
+			features.put("string",string);
+			}
+features.put("rule", "Subordinate2"); 
+features.put("hypernyms",hypernyms);
+outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
+                              "Superordinate", features);  
+}

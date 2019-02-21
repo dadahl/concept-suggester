@@ -1,0 +1,18 @@
+Phase: Cleanup
+Input: Sentence
+Options: control = appelt debug = true  
+ 
+Rule: Cleanup
+{Sentence}
+-->
+{  
+ 
+ //remove old intents arrays from corpus features
+ 
+ // corpus compound intents -- intents that occur anywhere in the corpus
+    ArrayList corpusIntents = new ArrayList();
+		ctx.getCorpus().getFeatures().put("corpusIntents", corpusIntents);
+ //this is for corpus basic intents
+   ArrayList basicCorpusIntents = new ArrayList();
+		ctx.getCorpus().getFeatures().put("basicCorpusIntents", basicCorpusIntents);
+ }

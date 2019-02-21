@@ -1,0 +1,13 @@
+Multiphase: Entities
+Phases: 
+noEntity
+sentence
+intent
+noun
+nounGroup
+entity
+modifier
+entityValue
+subordinateHierarchy
+superordinateHierarchy
+synonyms

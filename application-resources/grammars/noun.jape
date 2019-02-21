@@ -1,0 +1,46 @@
+Phase: Noun
+Input: Token
+Options: control = appelt debug = true  
+ 
+
+Rule: Noun
+({Token.category == NN} |
+{Token.category == NNS} )
+:noun
+-->
+{  
+AnnotationSet noun = bindings.get("noun");  
+Annotation nounAnn = noun.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String root = (String) nounAnn.getFeatures().get("root");
+FeatureMap featuresNoun = nounAnn.getFeatures();
+String nounString = (String) featuresNoun.get("string");
+features.put("proper", "false"); 
+features.put("rule", "Noun1"); 
+features.put("root",root); 
+features.put("string", nounString);
+outputAS.add(noun.firstNode(), noun.lastNode(),  
+                              "Noun", features);  
+}
+
+Rule: ProperNoun
+(
+{Token.category == NNPS} |
+{Token.category == NNP})
+:noun
+-->
+{  
+AnnotationSet noun = bindings.get("noun");  
+Annotation nounAnn = noun.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String root = (String) nounAnn.getFeatures().get("root");
+FeatureMap featuresNoun = nounAnn.getFeatures();
+String nounString = (String) featuresNoun.get("string");
+features.put("rule", "ProperNoun1"); 
+features.put("proper", "true"); 
+features.put("root",root); 
+features.put("string", nounString);
+outputAS.add(noun.firstNode(), noun.lastNode(),  
+                              "Noun", features);  
+}
+

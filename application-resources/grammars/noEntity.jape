@@ -1,0 +1,22 @@
+Phase: NoEntities
+Input: Lookup
+Options: control = all debug = true  
+ 
+Rule: NoEntity
+({Lookup.majorType == Not} |
+{Lookup.majorType == Alternative} |
+{Lookup.majorType == Carrier})
+:noEntity
+-->
+
+{  
+// words that are part of these types usually don't add any semantic
+// information, and they won't be useful in suggesting entities, 
+// so we will ignore them
+AnnotationSet noEntity = bindings.get("noEntity");  
+Annotation noEntityAnn = noEntity.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+features.put("rule", "noEntity1");  
+outputAS.add(noEntity.firstNode(), noEntity.lastNode(),  
+                              "NoEntity", features);  
+}
