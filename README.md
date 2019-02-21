@@ -39,4 +39,5 @@ The current application uses the following GATE plugins, which can be found in y
  WordNet
  
 MIT license
+
 Note that GATE itself (https://gate.ac.uk) is licensed under the LGPL and WordNet has its own license (https://wordnet.princeton.edu/license-and-commercial-use). 
