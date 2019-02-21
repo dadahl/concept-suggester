@@ -23,4 +23,19 @@ possible entity value nearby
 possible entity value Indian
 possible entity value open
 
+The current application uses the following GATE plugins, which can be found in your GATE installation:
+ DocumentNormalizer
+ OpenNLP
+ WordNet_Suggester-master
+ Tagger_Measurements
+ Tagger_GATE-Time
+ Tagger_DateNormalizer
+ Tagger_Numbers
+ MuNPEx
+ Tools
+ JAPE_Plus
+ Tagger_NP_Chunking
+ ANNIE
+ WordNet
+ 
 Note that GATE itself (https://gate.ac.uk) is licensed under the LGPL and WordNet has its own license (https://wordnet.princeton.edu/license-and-commercial-use). 
