@@ -1,5 +1,5 @@
 Phase: Synonyms
-Input:  Token Entity
+Input:  Token Entity EntityValue
 Options: control = appelt debug = true  
 
 Rule: Synonyms
@@ -22,7 +22,7 @@ while (it.hasNext()) {
    }
 }
 if(string != null){
-      System.out.println("entity is " + string);
+      //System.out.println("entity is " + string);
 			features.put("string",string);
 			}
 features.put("rule", "Synonyms1"); 
@@ -46,7 +46,7 @@ while (it.hasNext()) {
    Annotation entityValueAnn = (Annotation) it.next();
    string = (String) entityValueAnn.getFeatures().get("string");
    synonyms = (ArrayList) entityValueAnn.getFeatures().get("synonyms");
-	 if(!(synonyms != null)){
+	 if(synonyms != null){
       System.out.println("here are synonyms " + synonyms);
    }
 }
