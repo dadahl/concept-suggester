@@ -7,16 +7,28 @@ It is still up to the developer to decide whether these suggestions are helpful.
 A corpus of movie reviews (MIT movie review corpus https://groups.csail.mit.edu/sls/downloads/movie) is included as an example.
 The tools are currently intended to be used within a GATE development environment, but could be exported to a stand-alone application.
 The tool produces a trace of possible concepts in the GATE "messages" window as it goes through the analysis of a corpus, for example:
+
 Utterance:
 Is there a nearby Indian restaurant that's open now?
+
 Trace:
+
 possible intent lookFor
+
 possible intent inform
+
 possible entity restaurant
+
 possible compound intent lookForRestaurant
+
 possible compound intent informRestaurant
+
 possible entity value nearby
+
 possible entity value Indian
+
 possible entity value open
  
-Note that GATE itself (https://gate.ac.uk) is licensed under the LGPL and WordNet has its own license (https://wordnet.princeton.edu/license-and-commercial-use). 
+Some of the plugins used in this application are large (OpenNLP, for example), so they might have to be downloaded separately.
+
+Note that GATE itself (https://gate.ac.uk) is licensed under the LGPL.
