@@ -1,0 +1,62 @@
+Phase: SubordinateHierarchy
+Input:  Token Entity EntityValue
+Options: control = appelt debug = true  
+
+Rule: Subordinate
+({Token within Entity})
+:entity
+-->
+{  
+FeatureMap features = Factory.newFeatureMap();  
+AnnotationSet entity = bindings.get("entity");    
+Iterator it = entity.iterator(); 
+String string = null;
+ArrayList hyponyms = null;
+
+while (it.hasNext()) { 
+   Annotation entityAnn = (Annotation) it.next();
+   string = (String) entityAnn.getFeatures().get("string");
+	// System.out.println("string is " + string);
+   hyponyms = (ArrayList) entityAnn.getFeatures().get("hyponyms");
+	 if(hyponyms != null){
+      System.out.println("kinds are " + hyponyms);
+   }
+}
+if(string != null){
+     // System.out.println("entity is " + string);
+			features.put("string",string);
+			}
+features.put("rule", "Subordinate1"); 
+features.put("hyponyms",hyponyms);
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "Subordinate", features);  
+}
+
+Rule: Subordinate
+({Token within EntityValue})
+:entityValue
+-->
+{  
+FeatureMap features = Factory.newFeatureMap();  
+AnnotationSet entityValue = bindings.get("entityValue");   
+Iterator it = entityValue.iterator(); 
+String string = null;
+ArrayList hyponyms = null;
+
+while (it.hasNext()) { 
+   Annotation entityValueAnn = (Annotation) it.next();
+   string = (String) entityValueAnn.getFeatures().get("string");
+   hyponyms = (ArrayList) entityValueAnn.getFeatures().get("hyponyms");
+	 if(hyponyms != null){
+      System.out.println("kinds are " + hyponyms);
+   }
+}
+if(string != null){
+      System.out.println("entity value is " + string);
+			features.put("string",string);
+			}
+features.put("rule", "Subordinate2"); 
+features.put("hyponyms",hyponyms);
+outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
+                              "Subordinate", features);  
+}

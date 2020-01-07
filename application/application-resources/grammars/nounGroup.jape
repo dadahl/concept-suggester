@@ -1,0 +1,97 @@
+Phase: NounGroup
+Input: Noun Lookup Token
+Options: control = appelt debug = true  
+
+Rule: NounGroup
+(({Noun}):first
+({Noun}):second
+({Noun}):third)
+:noun
+-->
+{  
+AnnotationSet noun = bindings.get("noun");  
+Annotation nounAnn = noun.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String root = (String) nounAnn.getFeatures().get("root");
+
+//put together the noun String
+AnnotationSet first = bindings.get("first");  
+Annotation firstAnn = first.iterator().next();  
+FeatureMap featuresFirst = firstAnn.getFeatures();
+String firstString = (String) featuresFirst.get("string");
+
+AnnotationSet second = bindings.get("second");  
+Annotation secondAnn = second.iterator().next();  
+FeatureMap featuresSecond = secondAnn.getFeatures();
+String secondString = (String) featuresSecond.get("string");
+
+AnnotationSet third = bindings.get("third");  
+Annotation thirdAnn = third.iterator().next();  
+FeatureMap featuresThird = thirdAnn.getFeatures();
+String thirdString = (String) featuresThird.get("string");
+String proper = (String) featuresThird.get("proper");
+features.put("proper",proper);
+
+features.put("rule", "NounGroup1"); 
+features.put("root",root); 
+features.put("string", firstString + " " + secondString + " " + thirdString);
+outputAS.add(noun.firstNode(), noun.lastNode(),  
+                              "NounGroup", features);  
+}
+ 
+ 
+Rule: NounGroup
+(({Noun}):first
+({Noun}):second
+)
+:noun
+-->
+{  
+AnnotationSet noun = bindings.get("noun");  
+Annotation nounAnn = noun.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String root = (String) nounAnn.getFeatures().get("root");
+
+//put together the noun String
+AnnotationSet first = bindings.get("first");  
+Annotation firstAnn = first.iterator().next();  
+FeatureMap featuresFirst = firstAnn.getFeatures();
+String firstString = (String) featuresFirst.get("string");
+
+AnnotationSet second = bindings.get("second");  
+Annotation secondAnn = second.iterator().next();  
+FeatureMap featuresSecond = secondAnn.getFeatures();
+String secondString = (String) featuresSecond.get("string");
+String proper = (String) featuresSecond.get("proper");
+features.put("proper",proper);
+
+features.put("rule", "NounGroup2"); 
+features.put("root",root); 
+features.put("string", firstString + " " + secondString);
+outputAS.add(noun.firstNode(), noun.lastNode(),  
+                              "NounGroup", features);  
+}
+
+Rule: NounGroup
+({Noun})
+:noun
+-->
+{  
+AnnotationSet noun = bindings.get("noun");  
+Annotation nounAnn = noun.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String root = (String) nounAnn.getFeatures().get("root");
+
+//put together the noun String
+AnnotationSet first = bindings.get("noun");  
+Annotation firstAnn = first.iterator().next();  
+FeatureMap featuresFirst = firstAnn.getFeatures();
+String firstString = (String) featuresFirst.get("string");
+String proper = (String) featuresFirst.get("proper");
+features.put("proper",proper);
+features.put("rule", "NounGroup2"); 
+features.put("root",root); 
+features.put("string", firstString);
+outputAS.add(noun.firstNode(), noun.lastNode(),  
+                              "NounGroup", features);  
+}
