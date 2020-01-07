@@ -5,7 +5,7 @@ The generic natural language understanding tools identify syntactic construction
 Intents are proposed based on verbs, possibly combined with their direct objects to create a "compound intent".
 It is still up to the developer to decide whether these suggestions are helpful.
 A corpus of movie reviews (MIT movie review corpus https://groups.csail.mit.edu/sls/downloads/movie) is included as an example.
-The tools are currently intended to be used within a GATE development environment, but could be exported to a stand-alone application.
+The tool can be used within a GATE development environment and can also be used standalone from the command line with the command "suggest.bat".
 The tool produces a trace of possible concepts in the GATE "messages" window as it goes through the analysis of a corpus, for example:
 
 Utterance:
