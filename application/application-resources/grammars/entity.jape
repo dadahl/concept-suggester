@@ -40,10 +40,13 @@ Rule: Entity
 {  
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
+String root = (String) entityAnn.getFeatures().get("root");
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 System.out.println("possible entity " + "Location with value " + string);
 FeatureMap features = Factory.newFeatureMap();  
 features.put("rule", "Entity2"); 
+features.put("root",root); 
+features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
 }
@@ -56,9 +59,12 @@ Rule: Entity
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity " + "Person with value " + string);
 features.put("rule", "Entity3"); 
+features.put("root",root); 
+features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
 }

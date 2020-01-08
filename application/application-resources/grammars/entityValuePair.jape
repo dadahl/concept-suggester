@@ -1,0 +1,27 @@
+Phase: EntityValuePair
+Input: Entity EntityValue
+Options: control = appelt debug = true  
+
+Rule: EntityValuePair
+(({EntityValue}):value
+({Entity}):entity)
+:entityValuePair
+-->
+{  
+AnnotationSet entityValuePair = bindings.get("entityValuePair");  
+AnnotationSet entity = bindings.get("entity");  
+AnnotationSet value = bindings.get("value");  
+Annotation entityValuePairAnn = entity.iterator().next();
+Annotation entityAnn = entity.iterator().next();
+Annotation valueAnn = value.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String entityRoot = (String) entityAnn.getFeatures().get("root");
+String valueRoot = (String) valueAnn.getFeatures().get("root");
+String string = (String) entityValuePairAnn.getFeatures().get("string");
+System.out.println(valueRoot + " is a possible value for entity " + entityRoot);
+features.put("rule", "EntityValuePair1"); 
+features.put("string",string);
+outputAS.add(entityValuePair.firstNode(), entityValuePair.lastNode(),  
+                              "EntityValuePair", features);  
+}
+

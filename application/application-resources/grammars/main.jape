@@ -8,6 +8,7 @@ nounGroup
 entity
 modifier
 entityValue
+entityValuePair
 subordinateHierarchy
 superordinateHierarchy
 synonyms

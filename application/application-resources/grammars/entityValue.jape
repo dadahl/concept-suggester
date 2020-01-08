@@ -1,5 +1,5 @@
 Phase: EntityValue
-Input: Adjective NounGroup Lookup NoEntity Location
+Input: Adjective NounGroup NoEntity Location Person Date Percentage Money Time Organization
 Options: control = appelt debug = true  
 
 Rule: EntityValue
@@ -42,22 +42,113 @@ if(proper.equals("true")){
 															}
 }
 
+
 Rule: EntityValue
 ({Location notWithin {NoEntity}})
 :entityValue
 -->
 {  
-AnnotationSet entityValue = bindings.get("entityValue");  
-Annotation entityValueAnn = entityValue.iterator().next();  
-FeatureMap features = Factory.newFeatureMap(); 
-String string = gate.Utils.cleanStringFor(doc,entityValueAnn);
-System.out.println("possible entity value of Location " + string);
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String root = (String) entityAnn.getFeatures().get("root");
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+System.out.println("possible value " + string + " of entity Location");
+FeatureMap features = Factory.newFeatureMap();  
 features.put("rule", "EntityValue3"); 
+features.put("root",root); 
 features.put("string",string); 
-features.put("root",string);
-outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
+outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
 }
 
+Rule: EntityValue
+({Person notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible value " + string + " of entity Person");
+features.put("rule", "EntityValue4"); 
+features.put("root",root); 
+features.put("string",string); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
 
-//Number, Currency, NamedEntity types, Organization
+Rule: EntityValue
+({Date notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible value " + string + " of entity Date");
+features.put("rule", "EntityValue5"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Money notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible value " + string + " of entity Money");
+features.put("rule", "EntityValue6"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+Rule: EntityValue
+({Organization notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible value " + string + " of entity Organization");
+features.put("rule", "EntityValue7"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Time notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible value " + string + " of entity Time");
+features.put("rule", "EntityValue8"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Percentage notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = (String) entityAnn.getFeatures().get("string"); 
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible value " + string + " of entity " + "Percentage");
+features.put("rule", "EntityValue9"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
