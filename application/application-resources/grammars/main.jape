@@ -1,5 +1,6 @@
 Multiphase: Entities
 Phases: 
+namedEntity
 noEntity
 sentence
 intent

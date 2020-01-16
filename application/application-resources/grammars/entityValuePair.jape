@@ -18,7 +18,7 @@ FeatureMap features = Factory.newFeatureMap();
 String entityRoot = (String) entityAnn.getFeatures().get("root");
 String valueRoot = (String) valueAnn.getFeatures().get("root");
 String string = (String) entityValuePairAnn.getFeatures().get("string");
-System.out.println(valueRoot + " is a possible value for entity " + entityRoot);
+System.out.println("possible value:" + valueRoot + ":for entity:" + entityRoot);
 features.put("rule", "EntityValuePair1"); 
 features.put("string",string);
 outputAS.add(entityValuePair.firstNode(), entityValuePair.lastNode(),  

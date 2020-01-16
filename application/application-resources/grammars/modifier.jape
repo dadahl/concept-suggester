@@ -5,7 +5,7 @@ Options: control = appelt debug = true
 
 
 Rule: Adjective
-({Token.category == JJ})
+({Token.category == JJ} | {Token.category == jj})
 :adjective
 -->
 {  
@@ -22,7 +22,7 @@ features.put("string",string);
 }
  
 Rule: Adjective
-({Token.category == JJR})
+({Token.category == JJR}| {Token.category == jjr})
 :adjective
 -->
 {  
@@ -39,7 +39,7 @@ features.put("string",root);
 }
 
 Rule: Adjective
-({Token.category == JJS})
+({Token.category == JJS}| {Token.category == jjs})
 :adjective
 -->
 {  

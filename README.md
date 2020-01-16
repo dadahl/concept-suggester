@@ -29,7 +29,6 @@ possible entity value Indian
 
 possible entity value open
  
-Some of the plugins used in this application are large (OpenNLP, for example), so they might have to be downloaded separately.
 
 This tool requires Java 9.
 Note that GATE itself (https://gate.ac.uk) is licensed under the LGPL.

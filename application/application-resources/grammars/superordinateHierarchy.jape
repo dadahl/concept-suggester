@@ -51,7 +51,7 @@ while (it.hasNext()) {
    }
 }
 if(string != null){
-      System.out.println("entity value is " + string);
+      //System.out.println("entity value is " + string);
 			features.put("string",string);
 			}
 features.put("rule", "Subordinate2"); 

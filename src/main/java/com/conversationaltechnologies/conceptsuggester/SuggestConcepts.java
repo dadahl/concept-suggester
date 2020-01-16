@@ -17,6 +17,7 @@ import gate.Gate;
 import gate.Factory;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
+import gate.persist.PersistenceException;
 import gate.util.persistence.PersistenceManager;
 
 import java.util.Set;
@@ -31,6 +32,8 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
+import java.nio.file.DirectoryIteratorException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,6 +71,11 @@ import java.util.stream.Stream;
  */
 public class SuggestConcepts {
 
+    static private Corpus corpus;
+    static private CorpusController application;
+    private static final String UTTERANCE_PREFIX = "utt";
+    static int utteranceCount = 0;
+
     /**
      * The main entry point. First we parse the command line options (see
      * usage() method for details), then we take all remaining command line
@@ -81,39 +89,64 @@ public class SuggestConcepts {
         // initialise GATE - this must be done before calling any GATE APIs
         gate.Gate.init();
         processFiles("./inputs");
+        //to debug with one file
+        //File inputFile = new File("./input.txt");
+        //processFile(inputFile);
         System.out.println("All done");
     }
 
     static void processFiles(String directory) {
+        // load the saved application
+        
+        try {
+            // Create a Corpus to use. The string parameter to newCorpus() is simply the
+            // GATE-internal name to use for the corpus.  It has no particular
+            // significance.
+            setCorpus(Factory.newCorpus("BatchProcessApp Corpus"));
+            application = (CorpusController) PersistenceManager.loadObjectFromFile(gappFile);
+            application.setCorpus(getCorpus());
+        } catch (PersistenceException | IOException | ResourceInstantiationException ex) {
+            Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try (Stream<Path> paths = Files.walk(Paths.get(directory))) {
-            paths
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> processFile(file.toFile()));
+            paths.filter(Files::isRegularFile).forEach(file -> processFile(file.toFile()));
         } catch (IOException ex) {
             Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /*static void processFiles(String dir) throws IOException {
+        Path dirPath = Paths.get(dir);
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dirPath)) {
+            for (Path entry : stream) {
+                File entryFile = entry.toFile();
+                processFile(entryFile);
+            }
+        } catch (DirectoryIteratorException ex) {
+            // I/O error encounted during the iteration, the cause is an IOException
+            throw ex.getCause();
+        }
+    }
+
+    static void processFiles(String dir){
+        File file = new File("./input.txt");
+        for(int i = 0; i< 100; i++){
+            processFile(file);
+        }
+    }
+     */
     static void processFile(File docFile) {
+        
         System.out.print("Processing document " + docFile + "...");
+        utteranceCount++;
+        String utteranceId = getUTTERANCE_PREFIX() + utteranceCount;
+        System.out.println("utterance id: " + utteranceId);
         Document doc;
         try {
             doc = Factory.newDocument(docFile.toURL(), encoding);
 
-            // load the saved application
-            CorpusController application
-                    = (CorpusController) PersistenceManager.loadObjectFromFile(gappFile);
-
-            // Create a Corpus to use.  We recycle the same Corpus object for each
-            // iteration.  The string parameter to newCorpus() is simply the
-            // GATE-internal name to use for the corpus.  It has no particular
-            // significance.
-            Corpus corpus;
-            corpus = Factory.newCorpus("BatchProcessApp Corpus");
-
-            application.setCorpus(corpus);
             // put the document in the corpus
-            corpus.add(doc);
+            getCorpus().add(doc);
 
             try {
                 // run the application
@@ -123,7 +156,7 @@ public class SuggestConcepts {
             }
 
             // remove the document from the corpus again
-            corpus.clear();
+            getCorpus().clear();
 
             String docXMLString = null;
             // if we want to just write out specific annotation types, we must
@@ -147,10 +180,10 @@ public class SuggestConcepts {
                 }
 
                 // create the XML string using these annotations
-                docXMLString = doc.toXml(annotationsToWrite);
+                // docXMLString = doc.toXml(annotationsToWrite);
             } // otherwise, just write out the whole document as GateXML
             else {
-                docXMLString = doc.toXml();
+                // docXMLString = doc.toXml();
             }
 
             // Release the document, as it is no longer needed
@@ -274,4 +307,26 @@ public class SuggestConcepts {
      * platform default encoding is used.
      */
     private static String encoding = null;
+
+    /**
+     * @return the corpus
+     */
+    public static Corpus getCorpus() {
+        return corpus;
+    }
+
+    /**
+     * @param aCorpus the corpus to set
+     */
+    public static void setCorpus(Corpus aCorpus) {
+        corpus = aCorpus;
+    }
+
+    /**
+     * @return the UTTERANCE_PREFIX
+     */
+    public static String getUTTERANCE_PREFIX() {
+        return UTTERANCE_PREFIX;
+    }
+
 }

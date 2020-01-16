@@ -1,9 +1,12 @@
 Phase: Entity
-Input: NounGroup Token Location Person Date Number Money Organization Time Percentage
-Options: control = appelt debug = true  
+Input: NounGroup Token Location Person Date Number Money Organization Time Percentage NamedEntity
+Options: control = appelt 
+debug = true  
  
+
+
 Rule: Entity
-({NounGroup notWithin {NoEntity}})
+({NounGroup notWithin {NoEntity},!NamedEntity})
 :entity
 -->
 {  
@@ -15,7 +18,7 @@ String string = gate.Utils.cleanStringFor(doc,entityAnn);
 String capString = string.substring(0, 1).toUpperCase() + string.substring(1);
 String proper = (String) entityAnn.getFeatures().get("proper");
 if(proper.equals("false")){
-   System.out.println("possible entity " + string);
+   System.out.println("possible entity:" + string);
 	 ArrayList basicIntentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
    Iterator intentsIterator = basicIntentsArray.iterator();
 	 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("intents");
@@ -23,7 +26,7 @@ if(proper.equals("false")){
 	   String basicIntent = (String) intentsIterator.next();
 		 String compoundIntent = basicIntent + capString;
 		 intentsArray.add(compoundIntent);
-		 System.out.println("possible compound intent " + compoundIntent);
+		 System.out.println("possible compound intent: " + compoundIntent);
 	 }
    features.put("rule", "Entity1"); 
    features.put("root",root); 
@@ -34,6 +37,37 @@ if(proper.equals("false")){
 }
 
 Rule: Entity
+(({Token.category == nn,!NamedEntity}) | 
+({Token.category == NN,!NamedEntity}) |
+({Token.category == NNS,!NamedEntity}) |
+({Token.category == nns,!NamedEntity}))
+:entity
+-->
+{  
+AnnotationSet entity = bindings.get("entity");  
+Annotation entityAnn = entity.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String root = (String) entityAnn.getFeatures().get("root");
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String capString = string.substring(0, 1).toUpperCase() + string.substring(1);
+System.out.println("possible entity: " + string);
+ArrayList basicIntentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
+Iterator intentsIterator = basicIntentsArray.iterator();
+ArrayList intentsArray = (ArrayList) doc.getFeatures().get("intents");
+while(intentsIterator.hasNext()){
+ String basicIntent = (String) intentsIterator.next();
+ String compoundIntent = basicIntent + capString;
+ intentsArray.add(compoundIntent);
+ System.out.println("possible compound intent: " + compoundIntent);
+}
+features.put("rule", "Entity2"); 
+features.put("root",root); 
+features.put("string",string); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+													"Entity", features);  
+}
+
+/*Rule: Entity
 ({Location notWithin {NoEntity}})
 :entity
 -->
@@ -42,7 +76,7 @@ AnnotationSet entity = bindings.get("entity");
 Annotation entityAnn = entity.iterator().next(); 
 String root = (String) entityAnn.getFeatures().get("root");
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
-System.out.println("possible entity " + "Location with value " + string);
+//System.out.println("possible entity:" + "Location with value " + string);
 FeatureMap features = Factory.newFeatureMap();  
 features.put("rule", "Entity2"); 
 features.put("root",root); 
@@ -61,7 +95,7 @@ Annotation entityAnn = entity.iterator().next();
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity " + "Person with value " + string);
+//System.out.println("possible entity:" + "Person with value " + string);
 features.put("rule", "Entity3"); 
 features.put("root",root); 
 features.put("string",string); 
@@ -78,7 +112,7 @@ AnnotationSet entity = bindings.get("entity");
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity " + "Date with value " + string);
+//System.out.println("possible entity:" + "Date with value " + string);
 features.put("rule", "Entity4"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -93,7 +127,7 @@ AnnotationSet entity = bindings.get("entity");
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity " + "Money with value " + string);
+//System.out.println("possible entity:" + "Money with value " + string);
 features.put("rule", "Entity5"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -107,7 +141,7 @@ AnnotationSet entity = bindings.get("entity");
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity " + "Organization with value " + string);
+//System.out.println("possible entity:" + "Organization with value " + string);
 features.put("rule", "Entity6"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -121,7 +155,7 @@ AnnotationSet entity = bindings.get("entity");
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity " + "Time with value " + string);
+//System.out.println("possible entity:" + "Time with value " + string);
 features.put("rule", "Entity7"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -135,8 +169,9 @@ AnnotationSet entity = bindings.get("entity");
 Annotation entityAnn = entity.iterator().next(); 
 String string = (String) entityAnn.getFeatures().get("string"); 
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity " + "Percentage with value " + string);
+//System.out.println("possible entity:" + "Percentage with value " + string);
 features.put("rule", "Entity8"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
 }
+*/

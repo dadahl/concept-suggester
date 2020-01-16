@@ -1,9 +1,10 @@
 Phase: NoEntities
-Input: Lookup
+Input: Lookup 
 Options: control = all debug = true  
  
 Rule: NoEntity
-({Lookup.majorType == Not} |
+(
+{Lookup.majorType == Not} |
 {Lookup.majorType == Alternative} |
 {Lookup.majorType == Carrier})
 :noEntity

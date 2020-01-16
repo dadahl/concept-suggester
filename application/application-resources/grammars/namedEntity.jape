@@ -1,0 +1,24 @@
+Phase: NamedEntity
+Input: Person PERSON Location LOCATION Organization ORGANIZATION
+Options: control = appelt
+debug = true  
+ 
+Rule: NamedEntity
+({Person} |
+{PERSON} |
+{Location} |
+{LOCATION} |
+{Organization} |
+{ORGANIZATION})
+:namedEntity
+-->
+
+{  
+// named entities will be values of entities, but not entities themselves, 
+//so we want to mark them
+AnnotationSet namedEntity = bindings.get("namedEntity");   
+FeatureMap features = Factory.newFeatureMap();  
+features.put("rule", "namedEntity1");  
+outputAS.add(namedEntity.firstNode(), namedEntity.lastNode(),  
+                              "NamedEntity", features);  
+}

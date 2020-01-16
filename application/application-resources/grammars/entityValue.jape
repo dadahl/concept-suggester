@@ -1,6 +1,197 @@
 Phase: EntityValue
-Input: Adjective NounGroup NoEntity Location Person Date Percentage Money Time Organization
+Input: Adjective NounGroup NoEntity Location LOCATION Person PERSON Date Percentage Money Time Organization Token ORGANIZATION
 Options: control = appelt debug = true  
+
+
+Rule: EntityValue
+({Location notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String root = (String) entityAnn.getFeatures().get("root");
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+System.out.println("possible entity value: " + string + ": of entity: Location");
+FeatureMap features = Factory.newFeatureMap();  
+features.put("rule", "EntityValue3"); 
+features.put("root",root); 
+features.put("string",string); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({LOCATION notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String root = (String) entityAnn.getFeatures().get("root");
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+System.out.println("possible entity value: " + string + ": of entity: Location");
+FeatureMap features = Factory.newFeatureMap();  
+features.put("rule", "EntityValue4"); 
+features.put("root",root); 
+features.put("string",string); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+(({Person notWithin {NoEntity}}):person
+({Token.category=="np"}):proper
+)
+:entityValue
+-->
+{  
+// a Person followed by a proper name could be a name
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+AnnotationSet person = bindings.get("person");  
+Annotation personAnn = person.iterator().next(); 
+AnnotationSet proper = bindings.get("proper");  
+Annotation properAnn = proper.iterator().next(); 
+String personString = gate.Utils.cleanStringFor(doc,personAnn);
+String properString = gate.Utils.cleanStringFor(doc,properAnn);
+String root = (String) entityAnn.getFeatures().get("root");
+FeatureMap features = Factory.newFeatureMap();  
+String possibleEntityValue = personString + " " + properString;
+System.out.println("possible entity value: " + personString + ": of entity: Person");
+features.put("rule", "EntityValue5"); 
+if(root != null){
+	features.put("root",root); 
+}
+features.put("string",possibleEntityValue); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Person notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Person");
+features.put("rule", "EntityValue6"); 
+features.put("root",root); 
+features.put("string",string); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({PERSON notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Person");
+features.put("rule", "EntityValue7"); 
+features.put("root",root); 
+features.put("string",string); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Date notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Date");
+features.put("rule", "EntityValue8"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Money notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Money");
+features.put("rule", "EntityValue9"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+Rule: EntityValue
+({Organization notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Organization");
+features.put("rule", "EntityValue10"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({ORGANIZATION notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Organization");
+features.put("rule", "EntityValue10"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Time notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = gate.Utils.cleanStringFor(doc,entityAnn);
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Time");
+features.put("rule", "EntityValue11"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
+
+Rule: EntityValue
+({Percentage notWithin {NoEntity}})
+:entityValue
+-->
+{  
+AnnotationSet entity = bindings.get("entityValue");  
+Annotation entityAnn = entity.iterator().next(); 
+String string = (String) entityAnn.getFeatures().get("string"); 
+FeatureMap features = Factory.newFeatureMap();  
+System.out.println("possible entity value: " + string + ": of entity: Percentage");
+features.put("rule", "EntityValue12"); 
+outputAS.add(entity.firstNode(), entity.lastNode(),  
+                              "EntityValue", features);  
+}
 
 Rule: EntityValue
 ({Adjective notWithin {NoEntity}})
@@ -12,7 +203,7 @@ Annotation entityValueAnn = entityValue.iterator().next();
 FeatureMap features = Factory.newFeatureMap();  
 String root = (String) entityValueAnn.getFeatures().get("root");
 String string = (String) entityValueAnn.getFeatures().get("string");
-System.out.println("possible entity value " + string);
+System.out.println("possible entity value: " + string);
 features.put("rule", "EntityValue1"); 
 features.put("root",root); 
 features.put("string",string);
@@ -33,122 +224,11 @@ String proper = (String) entityValueAnn.getFeatures().get("proper");
 if(proper.equals("true")){
    String root = (String) entityValueAnn.getFeatures().get("root");
    String string = (String) entityValueAnn.getFeatures().get("string");
-   System.out.println("possible entity value " + string);
+   System.out.println("possible entity value: " + string);
    features.put("rule", "EntityValue2"); 
    features.put("root",root); 
 	 features.put("string",string);
    outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
                               "EntityValue", features);  
 															}
-}
-
-
-Rule: EntityValue
-({Location notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String root = (String) entityAnn.getFeatures().get("root");
-String string = gate.Utils.cleanStringFor(doc,entityAnn);
-System.out.println("possible value " + string + " of entity Location");
-FeatureMap features = Factory.newFeatureMap();  
-features.put("rule", "EntityValue3"); 
-features.put("root",root); 
-features.put("string",string); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
-}
-
-Rule: EntityValue
-({Person notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String string = gate.Utils.cleanStringFor(doc,entityAnn);
-String root = (String) entityAnn.getFeatures().get("root");
-FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible value " + string + " of entity Person");
-features.put("rule", "EntityValue4"); 
-features.put("root",root); 
-features.put("string",string); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
-}
-
-Rule: EntityValue
-({Date notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String string = gate.Utils.cleanStringFor(doc,entityAnn);
-FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible value " + string + " of entity Date");
-features.put("rule", "EntityValue5"); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
-}
-
-Rule: EntityValue
-({Money notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String string = gate.Utils.cleanStringFor(doc,entityAnn);
-FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible value " + string + " of entity Money");
-features.put("rule", "EntityValue6"); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
-}
-Rule: EntityValue
-({Organization notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String string = gate.Utils.cleanStringFor(doc,entityAnn);
-FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible value " + string + " of entity Organization");
-features.put("rule", "EntityValue7"); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
-}
-
-Rule: EntityValue
-({Time notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String string = gate.Utils.cleanStringFor(doc,entityAnn);
-FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible value " + string + " of entity Time");
-features.put("rule", "EntityValue8"); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
-}
-
-Rule: EntityValue
-({Percentage notWithin {NoEntity}})
-:entityValue
--->
-{  
-AnnotationSet entity = bindings.get("entityValue");  
-Annotation entityAnn = entity.iterator().next(); 
-String string = (String) entityAnn.getFeatures().get("string"); 
-FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible value " + string + " of entity " + "Percentage");
-features.put("rule", "EntityValue9"); 
-outputAS.add(entity.firstNode(), entity.lastNode(),  
-                              "EntityValue", features);  
 }
