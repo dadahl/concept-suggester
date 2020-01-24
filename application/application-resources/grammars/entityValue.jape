@@ -15,7 +15,11 @@ String string = gate.Utils.cleanStringFor(doc,entityAnn);
 System.out.println("possible entity value: " + string + ": of entity: Location");
 FeatureMap features = Factory.newFeatureMap();  
 features.put("rule", "EntityValue3"); 
-features.put("root",root); 
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -33,7 +37,11 @@ String string = gate.Utils.cleanStringFor(doc,entityAnn);
 System.out.println("possible entity value: " + string + ": of entity: Location");
 FeatureMap features = Factory.newFeatureMap();  
 features.put("rule", "EntityValue4"); 
-features.put("root",root); 
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -61,8 +69,10 @@ String possibleEntityValue = personString + " " + properString;
 System.out.println("possible entity value: " + personString + ": of entity: Person");
 features.put("rule", "EntityValue5"); 
 if(root != null){
-	features.put("root",root); 
-}
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",personString);}
 features.put("string",possibleEntityValue); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -80,7 +90,11 @@ String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Person");
 features.put("rule", "EntityValue6"); 
-features.put("root",root); 
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -98,7 +112,11 @@ String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Person");
 features.put("rule", "EntityValue7"); 
-features.put("root",root); 
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -112,8 +130,14 @@ Rule: EntityValue
 AnnotationSet entity = bindings.get("entityValue");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Date");
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("rule", "EntityValue8"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -127,8 +151,14 @@ Rule: EntityValue
 AnnotationSet entity = bindings.get("entityValue");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Money");
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("rule", "EntityValue9"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -141,8 +171,14 @@ Rule: EntityValue
 AnnotationSet entity = bindings.get("entityValue");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Organization");
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("rule", "EntityValue10"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -156,8 +192,14 @@ Rule: EntityValue
 AnnotationSet entity = bindings.get("entityValue");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Organization");
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("rule", "EntityValue10"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -171,8 +213,14 @@ Rule: EntityValue
 AnnotationSet entity = bindings.get("entityValue");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Time");
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("rule", "EntityValue11"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -186,8 +234,14 @@ Rule: EntityValue
 AnnotationSet entity = bindings.get("entityValue");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = (String) entityAnn.getFeatures().get("string"); 
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 System.out.println("possible entity value: " + string + ": of entity: Percentage");
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 features.put("rule", "EntityValue12"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "EntityValue", features);  
@@ -205,7 +259,11 @@ String root = (String) entityValueAnn.getFeatures().get("root");
 String string = (String) entityValueAnn.getFeatures().get("string");
 System.out.println("possible entity value: " + string);
 features.put("rule", "EntityValue1"); 
-features.put("root",root); 
+if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);} 
 features.put("string",string);
  outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
                               "EntityValue", features);  
@@ -219,14 +277,17 @@ Rule: EntityValue
 AnnotationSet entityValue = bindings.get("entityValue");  
 Annotation entityValueAnn = entityValue.iterator().next();  
 FeatureMap features = Factory.newFeatureMap();  
-
 String proper = (String) entityValueAnn.getFeatures().get("proper");
 if(proper.equals("true")){
    String root = (String) entityValueAnn.getFeatures().get("root");
    String string = (String) entityValueAnn.getFeatures().get("string");
    System.out.println("possible entity value: " + string);
    features.put("rule", "EntityValue2"); 
-   features.put("root",root); 
+   if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
 	 features.put("string",string);
    outputAS.add(entityValue.firstNode(), entityValue.lastNode(),  
                               "EntityValue", features);  

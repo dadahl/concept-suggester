@@ -1,10 +1,9 @@
 Phase: Intent
-Input: Lookup
+Input: Lookup Sentence
 Options: control = all debug = true  
  
 Rule: Intent
-(
-{Lookup.value == "lookFor"})
+({Sentence contains Lookup.value== "lookFor"})
 :intent
 -->
 
@@ -19,7 +18,7 @@ String intentString = gate.Utils.cleanStringFor(doc,intent);
 System.out.println("intent string: " + intentString);
 features.put("string",intentString); 
 features.put("rule", "Intent1"); 
-features.put("intent","lookFor"); 
+features.put("intent","LookFor"); 
 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
 if(!intentsArray.contains("lookFor")){
    intentsArray.add("lookFor");
@@ -29,9 +28,11 @@ outputAS.add(intent.firstNode(), intent.lastNode(),
                               "Intent", features);  
 }
 
+
+
 Rule: Intent
-(
-{Lookup.value == "informAbout"})
+
+({Sentence contains Lookup.value== "informAbout"})
 :intent
 -->
 
@@ -45,7 +46,7 @@ corpusIntents.add("inform");
 String intentString = gate.Utils.cleanStringFor(doc,intent);
 features.put("string",intentString); 
 features.put("rule", "Intent2"); 
-features.put("intent","informAbout"); 
+features.put("intent","InformAbout"); 
 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
 if(!intentsArray.contains("inform")){
    intentsArray.add("inform");

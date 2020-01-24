@@ -15,7 +15,8 @@ Annotation entityAnn = entity.iterator().next();
 FeatureMap features = Factory.newFeatureMap();  
 String root = (String) entityAnn.getFeatures().get("root");
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
-String capString = string.substring(0, 1).toUpperCase() + string.substring(1);
+String noSpaces = string.replaceAll("\\s+","");
+String capString = string.substring(0, 1).toUpperCase() + noSpaces.substring(1);
 String proper = (String) entityAnn.getFeatures().get("proper");
 if(proper.equals("false")){
    System.out.println("possible entity:" + string);
@@ -29,7 +30,11 @@ if(proper.equals("false")){
 		 System.out.println("possible compound intent: " + compoundIntent);
 	 }
    features.put("rule", "Entity1"); 
-   features.put("root",root); 
+   if(root != null){
+    features.put("root",root); 
+   }
+   else{
+   features.put("root",string);}
    features.put("string",string); 
    outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -49,7 +54,8 @@ Annotation entityAnn = entity.iterator().next();
 FeatureMap features = Factory.newFeatureMap();  
 String root = (String) entityAnn.getFeatures().get("root");
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
-String capString = string.substring(0, 1).toUpperCase() + string.substring(1);
+String noSpaces = string.replaceAll("\\s+","");
+String capString = string.substring(0, 1).toUpperCase() + noSpaces.substring(1);
 System.out.println("possible entity: " + string);
 ArrayList basicIntentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
 Iterator intentsIterator = basicIntentsArray.iterator();
@@ -61,13 +67,17 @@ while(intentsIterator.hasNext()){
  System.out.println("possible compound intent: " + compoundIntent);
 }
 features.put("rule", "Entity2"); 
-features.put("root",root); 
+if(root != null){
+ features.put("root",root); 
+ }
+else{
+ features.put("root",string);}
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
 													"Entity", features);  
 }
 
-/*Rule: Entity
+Rule: Entity
 ({Location notWithin {NoEntity}})
 :entity
 -->
@@ -78,8 +88,7 @@ String root = (String) entityAnn.getFeatures().get("root");
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 //System.out.println("possible entity:" + "Location with value " + string);
 FeatureMap features = Factory.newFeatureMap();  
-features.put("rule", "Entity2"); 
-features.put("root",root); 
+features.put("root","Location");
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -97,7 +106,7 @@ String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 //System.out.println("possible entity:" + "Person with value " + string);
 features.put("rule", "Entity3"); 
-features.put("root",root); 
+features.put("root","Person"); 
 features.put("string",string); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -111,8 +120,11 @@ Rule: Entity
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
-//System.out.println("possible entity:" + "Date with value " + string);
+System.out.println("possible entity:" + "Date with value " + string);
+features.put("root","Date"); 
+features.put("string",string); 
 features.put("rule", "Entity4"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -126,8 +138,11 @@ Rule: Entity
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 //System.out.println("possible entity:" + "Money with value " + string);
+features.put("root","Money");
+features.put("string",string); 
 features.put("rule", "Entity5"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -140,8 +155,11 @@ Rule: Entity
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 //System.out.println("possible entity:" + "Organization with value " + string);
+features.put("root","Organization");
+features.put("string",string); 
 features.put("rule", "Entity6"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -154,8 +172,11 @@ Rule: Entity
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 //System.out.println("possible entity:" + "Time with value " + string);
+features.put("root","Time");
+features.put("string",string); 
 features.put("rule", "Entity7"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
@@ -168,10 +189,13 @@ Rule: Entity
 AnnotationSet entity = bindings.get("entity");  
 Annotation entityAnn = entity.iterator().next(); 
 String string = (String) entityAnn.getFeatures().get("string"); 
+String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
 //System.out.println("possible entity:" + "Percentage with value " + string);
+ features.put("root","Percentage");
+features.put("string",string); 
 features.put("rule", "Entity8"); 
 outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
 }
-*/
+

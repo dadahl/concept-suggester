@@ -75,6 +75,7 @@ public class SuggestConcepts {
     static private CorpusController application;
     private static final String UTTERANCE_PREFIX = "utt";
     static int utteranceCount = 0;
+    private static WriteResult resultWriter = new WriteResult();
 
     /**
      * The main entry point. First we parse the command line options (see
@@ -96,8 +97,9 @@ public class SuggestConcepts {
     }
 
     static void processFiles(String directory) {
+        resultWriter.initializeOutputFile();
         // load the saved application
-        
+
         try {
             // Create a Corpus to use. The string parameter to newCorpus() is simply the
             // GATE-internal name to use for the corpus.  It has no particular
@@ -113,6 +115,7 @@ public class SuggestConcepts {
         } catch (IOException ex) {
             Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
         }
+        resultWriter.closeOutputFile();
     }
 
     /*static void processFiles(String dir) throws IOException {
@@ -136,7 +139,7 @@ public class SuggestConcepts {
     }
      */
     static void processFile(File docFile) {
-        
+
         System.out.print("Processing document " + docFile + "...");
         utteranceCount++;
         String utteranceId = getUTTERANCE_PREFIX() + utteranceCount;
@@ -187,6 +190,8 @@ public class SuggestConcepts {
             }
 
             // Release the document, as it is no longer needed
+            ExtractConcepts extractConcepts = new ExtractConcepts();
+            extractConcepts.getConcepts(utteranceId, doc);
             Factory.deleteResource(doc);
 
             // output the XML to <inputFile>.out.xml
@@ -327,6 +332,20 @@ public class SuggestConcepts {
      */
     public static String getUTTERANCE_PREFIX() {
         return UTTERANCE_PREFIX;
+    }
+
+    /**
+     * @return the resultWriter
+     */
+    public static WriteResult getResultWriter() {
+        return resultWriter;
+    }
+
+    /**
+     * @param aResultWriter the resultWriter to set
+     */
+    public static void setResultWriter(WriteResult aResultWriter) {
+        resultWriter = aResultWriter;
     }
 
 }
