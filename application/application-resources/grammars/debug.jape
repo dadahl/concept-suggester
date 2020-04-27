@@ -1,0 +1,13 @@
+Phase: Debug
+Input: Sentence 
+Options: control = appelt debug = true  
+ 
+Rule: Debug
+(
+{Sentence}
+)
+:sentence
+-->
+{  
+System.out.println("matching Sentence"); 
+}

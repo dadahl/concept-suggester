@@ -1,0 +1,19 @@
+Phase: IntentClass
+Input: Sentence Intent
+Options: control = all debug = true  
+ 
+
+Rule: Intent
+({Intent} )
+:intent
+-->
+{  
+AnnotationSet intent = bindings.get("intent");  
+Annotation intentAnn = intent.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String mydocContent = doc.getContent().toString(); 
+String intentString = (String) intentAnn.getFeatures().get("intent");
+Integer topic = (Integer) intentAnn.getFeatures().get("LDA_BestTopic");
+String topicString = topic + "";
+System.out.println(topicString + ":" + intentString + ":" + mydocContent); 
+}

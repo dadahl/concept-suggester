@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.googlecode.matrix-toolkits-java</groupId>
+    <artifactId>mtj</artifactId>
+    <version>0.9.14</version>
+    <name>Matrix Toolkits for Java</name>
+    <description>A comprehensive collection of matrix data structures, linear solvers, least squares methods, eigenvalue, and singular value decompositions.</description>
+    <url>http://code.google.com/p/matrix-toolkits-java/</url>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>http://code.google.com/p/matrix-toolkits-java/source/browse/</url>
+        <connection>scm:svn:http://matrix-toolkits-java.googlecode.com/svn/trunk/</connection>
+    </scm>
+    <developers>
+        <developer>
+            <name>Bjørn-Ove Heimsund</name>
+        </developer>
+        <developer>
+            <name>Sam Halliday</name>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>com.googlecode.netlib-java</groupId>
+            <artifactId>netlib-java</artifactId>
+            <version>0.9.3</version>
+        </dependency>
+    </dependencies>
+</project>
