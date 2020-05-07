@@ -1,0 +1,21 @@
+Phase: MainVerb
+Input: Verb Token
+Options: control = appelt debug = true  
+ 
+Rule: MainVerb
+(({Verb}):verb)
+({!Verb})
+-->
+
+{  
+AnnotationSet verb = bindings.get("verb");  
+Annotation verbAnn = verb.iterator().next();   
+String root = (String) verbAnn.getFeatures().get("root");
+FeatureMap features = Factory.newFeatureMap();  
+features.put("root",root);
+features.put("rule", "MainVerb1"); 
+if(!root.equals("be")){
+   outputAS.add(verb.firstNode(), verb.lastNode(),  
+                              "MainVerb", features);  
+                              }
+}

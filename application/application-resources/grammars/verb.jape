@@ -1,0 +1,27 @@
+Phase: Verb
+Input: Lookup Token
+Options: control = appelt debug = true  
+ 
+
+Rule: Verb
+({Token.category == VB} |
+{Token.category == VBD } |
+{Token.category == VBN } |
+{Token.category == VBP } |
+{Token.category == VBZ } |
+{Token.category == VBG }
+
+)
+:verb
+-->
+
+{  
+AnnotationSet verb = bindings.get("verb");  
+Annotation verbAnn = verb.iterator().next();  
+String root = (String) verbAnn.getFeatures().get("root");
+FeatureMap features = Factory.newFeatureMap();  
+features.put("rule", "Verb1"); 
+features.put("root",root);
+outputAS.add(verb.firstNode(), verb.lastNode(),  
+                              "Verb", features);  
+}

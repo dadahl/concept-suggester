@@ -1,7 +1,32 @@
 Phase: Intent
-Input: Lookup Sentence
-Options: control = all debug = true  
+Input: Lookup Sentence MainVerb
+Options: control = appelt debug = true  
  
+Rule: Intent
+
+({MainVerb})
+:intent
+-->
+
+{  
+System.out.println("matched");
+AnnotationSet intent = bindings.get("intent");  
+Annotation intentAnn = intent.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String intentString = gate.Utils.cleanStringFor(doc,intent);
+features.put("string",intentString); 
+features.put("rule", "Intent3"); 
+String root = (String) intentAnn.getFeatures().get("root"); 
+features.put("intent",root);
+ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
+if(!intentsArray.contains(intentString)){
+   intentsArray.add(intentString);
+	 System.out.println("possible intent: " + root);
+}
+outputAS.add(intent.firstNode(), intent.lastNode(),  
+                              "Intent", features);  
+}
+
 Rule: Intent
 ({Sentence contains Lookup.value== "lookFor"})
 :intent
@@ -9,7 +34,6 @@ Rule: Intent
 
 {  
 AnnotationSet intent = bindings.get("intent");  
-Annotation intentAnn = intent.iterator().next();  
 FeatureMap features = Factory.newFeatureMap();  
 FeatureMap corpusFeatures = ctx.getCorpus().getFeatures();
 ArrayList corpusIntents = (ArrayList) corpusFeatures.get("corpusIntents");
@@ -27,8 +51,6 @@ if(!intentsArray.contains("lookFor")){
 outputAS.add(intent.firstNode(), intent.lastNode(),  
                               "Intent", features);  
 }
-
-
 
 Rule: Intent
 
@@ -51,6 +73,31 @@ ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents");
 if(!intentsArray.contains("inform")){
    intentsArray.add("inform");
 	 System.out.println("possible intent:inform");
+}
+outputAS.add(intent.firstNode(), intent.lastNode(),  
+                              "Intent", features);  
+}
+
+
+
+Rule:Intent
+
+({Sentence})
+:intent
+-->
+
+{  
+AnnotationSet intent = bindings.get("intent");  
+Annotation intentAnn = intent.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+String intentString = "unknownIntent";
+features.put("string",intentString); 
+features.put("rule", "Intent4"); 
+features.put("intent",intentString); 
+ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
+if(!intentsArray.contains(intentString)){
+   intentsArray.add(intentString);
+	 System.out.println("possible intent: " + intentString);
 }
 outputAS.add(intent.firstNode(), intent.lastNode(),  
                               "Intent", features);  

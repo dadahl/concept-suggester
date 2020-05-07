@@ -24,9 +24,12 @@ public class ExtractConcepts {
     private String dateString = "";
     static final String INTENTS_COMMAS = ",";
     static final String COMPOUND_INTENTS_COMMAS = ",,";
-    static final String ENTITIES_COMMAS = ",,,";
-    static final String ENTITY_VALUE_COMMAS = ",,,,";
-    static final String ENTITY_VALUE_PAIR_COMMAS = ",,,,,";
+    static final String INTENT_CLASS_COMMAS = ",,,";
+    static final String BEST_TOPIC_COMMAS = ",,,,";
+    static final String BEST_TOPIC_PROB_COMMAS = ",,,,,";
+    static final String ENTITIES_COMMAS = ",,,,,,";
+    static final String ENTITY_VALUE_COMMAS = ",,,,,,,";
+    static final String ENTITY_VALUE_PAIR_COMMAS = ",,,,,,,,";
 
     public void getConcepts(String utteranceId, Document inputDoc) {
         this.setDateString(LocalDateTime.now().toString());
@@ -52,6 +55,17 @@ public class ExtractConcepts {
         while (listItrIntents.hasNext()) {
             resultString = resultString + System.lineSeparator() + prefixString + COMPOUND_INTENTS_COMMAS + listItrIntents.next();
         }
+        //get intent, class, confidence triples from topic classification
+        AnnotationSet intentClassConfidences = finalAnnotations.get("Intent");
+        Iterator intentClassConfidencesIterator = intentClassConfidences.iterator();
+        while (intentClassConfidencesIterator.hasNext()) {
+            Annotation annotation = (Annotation) intentClassConfidencesIterator.next();
+            FeatureMap annotationFeatures = annotation.getFeatures();
+            String intent = (String) annotationFeatures.get("intent");
+            Integer intentClass = (Integer) annotationFeatures.get("LDA_BestTopic");
+            Double intentConfidence = (Double) annotationFeatures.get("LDA_BestTopicProb");
+            resultString = resultString + System.lineSeparator() + prefixString + INTENT_CLASS_COMMAS + intent + "," + intentClass + "," + intentConfidence;
+        }
         //get entities
         AnnotationSet entities = finalAnnotations.get("Entity");
         Iterator entitiesIterator = entities.iterator();
@@ -59,7 +73,7 @@ public class ExtractConcepts {
             Annotation annotation = (Annotation) entitiesIterator.next();
             FeatureMap annotationFeatures = annotation.getFeatures();
             String root = (String) annotationFeatures.get("root");
-            resultString = resultString + System.lineSeparator() + prefixString + ENTITIES_COMMAS  + root;
+            resultString = resultString + System.lineSeparator() + prefixString + ENTITIES_COMMAS + root;
         }
         //get entity values
         AnnotationSet entityValues = finalAnnotations.get("EntityValue");

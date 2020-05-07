@@ -9,11 +9,11 @@ modelClass: cc.mallet.topics.ParallelTopicModel
 modelWhenTrained: null
 nrTargetValues: 0
 nrTrainingDimensions: 0
-nrTrainingDocuments: 257
-nrTrainingInstances: 138
+nrTrainingDocuments: 8
+nrTrainingInstances: 8
 seqEncoderClass: null
 seqEncoderOptions: null
 targetFeature: null
 task: CLUSTERING
 trainerClass: null
-trainingCorpusName: movies
+trainingCorpusName: BatchProcessApp Corpus

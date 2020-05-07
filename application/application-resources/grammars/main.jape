@@ -3,6 +3,8 @@ Phases:
 namedEntity
 noEntity
 sentence
+verb
+mainVerb
 intent
 noun
 nounGroup

@@ -1,24 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.conversationaltechnologies.conceptsuggester;
 
 /**
  *
  * @author Deborah Dahl
  */
+import static com.conversationaltechnologies.conceptsuggester.SuggestConcepts.utteranceCount;
 import gate.Document;
 import gate.Corpus;
 import gate.CorpusController;
 import gate.AnnotationSet;
-import gate.Gate;
 import gate.Factory;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.persist.PersistenceException;
 import gate.util.persistence.PersistenceManager;
+import java.io.BufferedOutputStream;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -27,16 +23,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.nio.file.DirectoryIteratorException;
-import java.nio.file.DirectoryStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -76,6 +73,7 @@ public class SuggestConcepts {
     private static final String UTTERANCE_PREFIX = "utt";
     static int utteranceCount = 0;
     private static WriteResult resultWriter = new WriteResult();
+    private static String directoryToProcess = "." + File.separator + "inputs" + File.separator;
 
     /**
      * The main entry point. First we parse the command line options (see
@@ -89,8 +87,9 @@ public class SuggestConcepts {
         parseCommandLine(args);
         // initialise GATE - this must be done before calling any GATE APIs
         gate.Gate.init();
-        processFiles("./inputs");
-        //to debug with one file
+        // processFiles("./inputs");
+        processCorpus(getDirectoryToProcess());
+        //to debug with one file uncomment the next two lines
         //File inputFile = new File("./input.txt");
         //processFile(inputFile);
         System.out.println("All done");
@@ -98,13 +97,12 @@ public class SuggestConcepts {
 
     static void processFiles(String directory) {
         resultWriter.initializeOutputFile();
-        // load the saved application
-
         try {
             // Create a Corpus to use. The string parameter to newCorpus() is simply the
             // GATE-internal name to use for the corpus.  It has no particular
             // significance.
             setCorpus(Factory.newCorpus("BatchProcessApp Corpus"));
+            // load the saved application
             application = (CorpusController) PersistenceManager.loadObjectFromFile(gappFile);
             application.setCorpus(getCorpus());
         } catch (PersistenceException | IOException | ResourceInstantiationException ex) {
@@ -118,28 +116,7 @@ public class SuggestConcepts {
         resultWriter.closeOutputFile();
     }
 
-    /*static void processFiles(String dir) throws IOException {
-        Path dirPath = Paths.get(dir);
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dirPath)) {
-            for (Path entry : stream) {
-                File entryFile = entry.toFile();
-                processFile(entryFile);
-            }
-        } catch (DirectoryIteratorException ex) {
-            // I/O error encounted during the iteration, the cause is an IOException
-            throw ex.getCause();
-        }
-    }
-
-    static void processFiles(String dir){
-        File file = new File("./input.txt");
-        for(int i = 0; i< 100; i++){
-            processFile(file);
-        }
-    }
-     */
     static void processFile(File docFile) {
-
         System.out.print("Processing document " + docFile + "...");
         utteranceCount++;
         String utteranceId = getUTTERANCE_PREFIX() + utteranceCount;
@@ -147,17 +124,14 @@ public class SuggestConcepts {
         Document doc;
         try {
             doc = Factory.newDocument(docFile.toURL(), encoding);
-
             // put the document in the corpus
             getCorpus().add(doc);
-
             try {
                 // run the application
                 application.execute();
             } catch (ExecutionException ex) {
                 Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             // remove the document from the corpus again
             getCorpus().clear();
 
@@ -181,40 +155,125 @@ public class SuggestConcepts {
                         annotationsToWrite.addAll(annotsOfThisType);
                     }
                 }
-
                 // create the XML string using these annotations
-                // docXMLString = doc.toXml(annotationsToWrite);
+                docXMLString = doc.toXml(annotationsToWrite);
             } // otherwise, just write out the whole document as GateXML
             else {
-                // docXMLString = doc.toXml();
+                docXMLString = doc.toXml();
             }
-
             // Release the document, as it is no longer needed
             ExtractConcepts extractConcepts = new ExtractConcepts();
             extractConcepts.getConcepts(utteranceId, doc);
             Factory.deleteResource(doc);
-
             // output the XML to <inputFile>.out.xml
             // Write output files using the same encoding as the original
-            // We don't write the output file right now
-            /*
-            String outputFileName = "./outputs/" + docFile.getName() + ".out.xml";
-            File outputFile = new File(docFile.getParentFile(), outputFileName);
-            FileOutputStream fos = new FileOutputStream(outputFile);
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
-            OutputStreamWriter out;
-            if (encoding == null) {
-                out = new OutputStreamWriter(bos);
-            } else {
-                out = new OutputStreamWriter(bos, encoding);
-            }
 
-            out.write(docXMLString);
-            out.close();
-             */
-            System.out.println("done");
-            // for each file
+            if (isWriteXML()) {
+                String outputFileName = "./outputs/" + docFile.getName() + ".out.xml";
+                File outputFile = new File(docFile.getParentFile(), outputFileName);
+                FileOutputStream fos = new FileOutputStream(outputFile);
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                OutputStreamWriter out;
+                if (encoding == null) {
+                    out = new OutputStreamWriter(bos);
+                } else {
+                    out = new OutputStreamWriter(bos, encoding);
+                }
+                out.write(docXMLString);
+                out.close();
+                System.out.println("done");
+                // for each file
+            }
         } catch (Exception ex) {
+            Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    static void processCorpus(String directory) {
+        resultWriter.initializeOutputFile();
+        // load the saved application
+        try {
+            try {
+                // Create a Corpus to use. The string parameter to newCorpus() is simply the
+                // GATE-internal name to use for the corpus.  It has no particular
+                // significance.
+                setCorpus(Factory.newCorpus("BatchProcessApp Corpus"));
+            } catch (ResourceInstantiationException ex) {
+                Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                application = (CorpusController) PersistenceManager.loadObjectFromFile(gappFile);
+            } catch (PersistenceException | IOException | ResourceInstantiationException ex) {
+                Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            application.setCorpus(getCorpus());
+            Stream<Path> paths;
+            try {
+                paths = Files.walk(Paths.get(directory));
+                paths.filter(Files::isRegularFile).forEach(file -> addDocToCorpus(file));
+            } catch (IOException ex) {
+                Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // run the application
+            application.execute();
+            for (Document doc : getCorpus()) {
+                utteranceCount++;
+                String utteranceId = getUTTERANCE_PREFIX() + utteranceCount;
+                ExtractConcepts extractConcepts = new ExtractConcepts();
+                extractConcepts.getConcepts(utteranceId, doc);
+                if (isWriteXML()) {
+                    // output the XML to <inputFile>.out.xml
+                    String docXMLString = null;
+                    // if we want to just write out specific annotation types, we must
+                    // extract the annotations into a Set
+                    if (annotTypesToWrite != null) {
+                        // Create a temporary Set to hold the annotations we wish to write out
+                        Set annotationsToWrite = new HashSet();
+                        // we extract annotations from the "Final" AnnotationSet
+                        // in this example
+                        AnnotationSet defaultAnnots = doc.getAnnotations("Final");
+                        Iterator annotTypesIt = annotTypesToWrite.iterator();
+                        while (annotTypesIt.hasNext()) {
+                            // extract all the annotations of each requested type and add them to
+                            // the temporary set
+                            AnnotationSet annotsOfThisType
+                                    = defaultAnnots.get((String) annotTypesIt.next());
+                            if (annotsOfThisType != null) {
+                                annotationsToWrite.addAll(annotsOfThisType);
+                            }
+                        }
+                        // create the XML string using these annotations
+                        docXMLString = doc.toXml(annotationsToWrite);
+                    } // if not interested in specific annotation types, just write 
+                    //out the whole document as GateXML
+                    else {
+                        docXMLString = doc.toXml();
+                    }
+                    resultWriter.writeXMLFile(encoding, doc, docXMLString);
+                    // for each file
+                    System.out.println("finished file");
+                }
+            }
+        } catch (ExecutionException ex) {
+            Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("finished corpus");
+            resultWriter.closeOutputFile();
+        }
+    }
+
+    private static void addDocToCorpus(Path path) {
+        utteranceCount++;
+        String utteranceId = getUTTERANCE_PREFIX() + utteranceCount;
+        System.out.println("utterance id: " + utteranceId);
+        try {
+            Document doc;
+            try {
+                doc = Factory.newDocument(path.toFile().toURL(), encoding);
+                getCorpus().add(doc);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ResourceInstantiationException ex) {
             Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -244,7 +303,16 @@ public class SuggestConcepts {
                 case 'e':
                     encoding = args[++i];
                     break;
-
+                // -x boolean to write xml file
+                case 'x':
+                    String writeXMLString = args[++i];
+                    setWriteXML(Boolean.parseBoolean(writeXMLString));
+                    break;
+// -d directory to process
+                case 'd':
+                    String directory = args[++i];
+                    setDirectoryToProcess(directory);
+                    break;
                 default:
                     System.err.println("Unrecognised option " + args[i]);
                     usage();
@@ -286,6 +354,8 @@ public class SuggestConcepts {
                 + "              GATE GUI.  If no -a option is given the whole of each\n"
                 + "              processed document will be output as GateXML (the equivalent\n"
                 + "              of \"save as XML\")."
+                + "-x boolean   : (optional) write the xml file of the results"
+                + "-d directory to process   : (optional) default is './inputs'"
         );
 
         System.exit(1);
@@ -305,13 +375,15 @@ public class SuggestConcepts {
      * List of annotation types to write out. If null, write everything as
      * GateXML.
      */
-    private static List annotTypesToWrite = null;
-
+    // private static List annotTypesToWrite = null;
+    private static List<String> annotTypesToWrite = new ArrayList<>(Arrays.asList("Intent", "Entity", "EntityValue", "EntityValuePair"));
     /**
-     * The character encoding to use when loading the docments. If null, the
+     * The character encoding to use when loading the documents. If null, the
      * platform default encoding is used.
      */
     private static String encoding = null;
+
+    private static boolean writeXML = false;
 
     /**
      * @return the corpus
@@ -346,6 +418,34 @@ public class SuggestConcepts {
      */
     public static void setResultWriter(WriteResult aResultWriter) {
         resultWriter = aResultWriter;
+    }
+
+    /**
+     * @return the writeXML
+     */
+    public static boolean isWriteXML() {
+        return writeXML;
+    }
+
+    /**
+     * @param aWriteXML the writeXML to set
+     */
+    public static void setWriteXML(boolean aWriteXML) {
+        writeXML = aWriteXML;
+    }
+
+    /**
+     * @return the directoryToProcess
+     */
+    public static String getDirectoryToProcess() {
+        return directoryToProcess;
+    }
+
+    /**
+     * @param aDirectoryToProcess the directoryToProcess to set
+     */
+    public static void setDirectoryToProcess(String aDirectoryToProcess) {
+        directoryToProcess = aDirectoryToProcess;
     }
 
 }

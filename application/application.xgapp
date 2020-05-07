@@ -487,6 +487,7 @@
                       <string>CompoundIntent</string>
                       <string>Sentence</string>
                       <string>Token</string>
+                      <string>MainVerb</string>
                     </localList>
                     <collectionType>java.util.ArrayList</collectionType>
                   </gate.util.persistence.CollectionPersistence>
@@ -518,12 +519,12 @@
                   <boolean>true</boolean>
                 </entry>
                 <entry>
-                  <string>tokenFeature</string>
-                  <string>root</string>
-                </entry>
-                <entry>
                   <string>trainingAlgorithm</string>
                   <gate.plugin.learningframework.engines.AlgorithmClustering>MalletLDA_CLUS_MR</gate.plugin.learningframework.engines.AlgorithmClustering>
+                </entry>
+                <entry>
+                  <string>tokenFeature</string>
+                  <string>root</string>
                 </entry>
                 <entry>
                   <string>inputASName</string>
