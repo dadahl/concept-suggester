@@ -1,0 +1,43 @@
+Phase: CompoundIntent
+Input: Dependency Token NamedEntity
+Options: control = appelt 
+debug = true  
+ 
+Rule: CompoundIntent
+({Dependency.kind == "dobj"})
+:dependency
+-->
+{  
+AnnotationSet dependency = bindings.get("dependency");  
+Annotation dependencyAnn = dependency.iterator().next();  
+ArrayList dependencyArgs = (ArrayList) dependencyAnn.getFeatures().get("args");
+Integer verbId = (Integer) dependencyArgs.get(0);
+Integer dobjId = (Integer) dependencyArgs.get(1);
+AnnotationSet docSet = doc.getAnnotations();
+AnnotationSet tokenSet = docSet.get("Token");
+Annotation verbToken = tokenSet.get(verbId);
+Annotation dobjToken = tokenSet.get(dobjId);
+FeatureMap verbFeatures = verbToken.getFeatures();
+FeatureMap dobjFeatures = dobjToken.getFeatures();
+String verbRoot = (String) verbFeatures.get("root");
+String namedEntityType = (String) dobjFeatures.get("namedEntityType");
+String dobjRoot = "";
+if(namedEntityType != null){
+   dobjRoot = namedEntityType;
+   }
+else{
+   dobjRoot = (String) dobjFeatures.get("root");
+   }
+FeatureMap features = Factory.newFeatureMap();  
+String compoundIntent = verbRoot + dobjRoot.substring(0, 1).toUpperCase() + dobjRoot.substring(1,dobjRoot.length());
+String intent = verbRoot;
+ArrayList intentsArray = (ArrayList) doc.getFeatures().get("intents");
+intentsArray.add(compoundIntent);
+intentsArray.add(intent);
+System.out.println("intents are " + intentsArray);
+System.out.println("compound intent is " + compoundIntent);
+//outputAS.add(dependency.firstNode(), dependency.lastNode(),  
+//                              "Dependency", features);  
+}
+
+

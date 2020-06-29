@@ -9,5 +9,5 @@ Rule: Debug
 :sentence
 -->
 {  
-System.out.println("matching Sentence"); 
+//System.out.println("matching Sentence"); 
 }

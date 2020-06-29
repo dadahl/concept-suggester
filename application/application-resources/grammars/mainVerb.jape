@@ -1,21 +1,29 @@
 Phase: MainVerb
-Input: Verb Token
+Input: Verb Token Dependency
 Options: control = appelt debug = true  
  
-Rule: MainVerb
-(({Verb}):verb)
-({!Verb})
--->
 
+Rule: MainVerb
+({Dependency.kind == "root"})
+:dependency
+-->
 {  
-AnnotationSet verb = bindings.get("verb");  
-Annotation verbAnn = verb.iterator().next();   
-String root = (String) verbAnn.getFeatures().get("root");
+AnnotationSet dependency = bindings.get("dependency");  
+Annotation dependencyAnn = dependency.iterator().next();  
+ArrayList dependencyArgs = (ArrayList) dependencyAnn.getFeatures().get("args");
+Integer rootId = (Integer) dependencyArgs.get(0);
+Integer verbId = (Integer) dependencyArgs.get(1);
+AnnotationSet docSet = doc.getAnnotations();
+AnnotationSet tokenSet = docSet.get("Token");
+Annotation rootToken = tokenSet.get(rootId);
+Annotation verbToken = tokenSet.get(verbId);
+
+FeatureMap verbFeatures = verbToken.getFeatures();
+//FeatureMap rootFeatures = rootToken.getFeatures();
+String verbRoot = (String) verbFeatures.get("root");
 FeatureMap features = Factory.newFeatureMap();  
-features.put("root",root);
 features.put("rule", "MainVerb1"); 
-if(!root.equals("be")){
-   outputAS.add(verb.firstNode(), verb.lastNode(),  
+features.put("root",verbRoot);
+outputAS.add(dependency.firstNode(), dependency.lastNode(),  
                               "MainVerb", features);  
-                              }
 }

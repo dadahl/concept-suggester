@@ -1,77 +1,74 @@
 id,utterance,time,intent,compound intent,intentClass,bestTopicConfidence,bestTopicProb,entity,entity value,entity value pair
 ,,,,,,,,,,entity,value
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,unknownIntent
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,unknownIntentMoviesstarbruce
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,unknownIntentWillis
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,,unknownIntent,4,0.16760823579615117
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,,,,,movie
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,,,,,willi
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,,,,,,willis
-utt9,"what movies star bruce willis",2020-05-07T14:30:18.887343800,,,,,,,,willi,willis
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,inform
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,informShow
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,informFilms
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,informBarrymore
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,InformAbout,6,0.16696847293667247
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,,,,show
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,,,,film
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,,,,barrymore
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,,,,Date
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,,,,,the 1980s
-utt10,"show me films with drew barrymore from the 1980s",2020-05-07T14:30:18.934208300,,,,,,,,Date,the 1980s
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,unknownIntent
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,unknownIntentMovies
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,unknownIntentAlpacino
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,unknownIntentDeniro
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,unknownIntent,2,0.16495522025030657
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,movie
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,al
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,Person
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,deniro
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,,starred
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,,robert deniro
-utt11,"what movies starred both al pacino and robert deniro",2020-05-07T14:30:18.934208300,,,,,,,,Person,robert deniro
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,lookFor
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,lookForMovies
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,lookForRamis
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,lookForBillmurray
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,LookFor,9,0.1755872506952482
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,rami
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,bill
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,movie
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,Person
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,,starred
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,,harold ramis
-utt12,"find me all of the movies that starred harold ramis and bill murray",2020-05-07T14:30:18.934208300,,,,,,,,Person,starred
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,lookFor
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,lookForMovie
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,lookForQuote
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,lookForBaseball
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,,LookFor,3,0.15414378535097994
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,,,,,movie
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,,,,,quote
-utt13,"find me a movie with a quote about baseball in it",2020-05-07T14:30:18.934208300,,,,,,baseball
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,unknownIntent
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,unknownIntentMovies
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,unknownIntentTitle
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,,unknownIntent,4,0.19342121673816362
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,,,,,movie
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,,,,,Location
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,,,,,title
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,,,,,,mississippi
-utt14,"what movies have mississippi in the title",2020-05-07T14:30:18.949831500,,,,,,,,Location,mississippi
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,inform
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,informShow
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,informSciencefictionfilms
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,,InformAbout,9,0.16486257490199954
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,,,,,show
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,,,,,science
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,,,,,Person
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,,,,,,steven spielberg
-utt15,"show me science fiction films directed by steven spielberg",2020-05-07T14:30:18.949831500,,,,,,,,Person,steven spielberg
-utt16,"do you have any thrillers directed by sofia coppola",2020-05-07T14:30:18.949831500,unknownIntent
-utt16,"do you have any thrillers directed by sofia coppola",2020-05-07T14:30:18.949831500,,unknownIntentThrillers
-utt16,"do you have any thrillers directed by sofia coppola",2020-05-07T14:30:18.949831500,,unknownIntentCoppola
-utt16,"do you have any thrillers directed by sofia coppola",2020-05-07T14:30:18.949831500,,,unknownIntent,6,0.1369534784069027
-utt16,"do you have any thrillers directed by sofia coppola",2020-05-07T14:30:18.949831500,,,,,,thriller
-utt16,"do you have any thrillers directed by sofia co
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,bruce
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,brucePerson
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,bruce
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,,brucePerson,4,0.16760823579615117
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,,,,,movie
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,,,,,willi
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,,,,,,willis
+utt9,"what movies star bruce willis",2020-06-29T14:30:49.075587600,,,,,,,,willi,willis
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,show
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,drawDate
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,draw
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,drawDate,6,0.16696847293667247
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,,,,show
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,,,,film
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,,,,barrymore
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,,,,Date
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,,,,,the 1980s
+utt10,"show me films with drew barrymore from the 1980s",2020-06-29T14:30:49.122361,,,,,,,,Date,the 1980s
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,starred
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,starredPerson
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,starred
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,starredPerson,2,0.16495522025030657
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,Person
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,deniro
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,movie
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,al
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,,starred
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,,robert deniro
+utt11,"what movies starred both al pacino and robert deniro",2020-06-29T14:30:49.137966200,,,,,,,,Person,robert deniro
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,find
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,starredPerson
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,starred
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,starredPerson,9,0.1755872506952482
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,movie
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,Person
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,rami
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,bill
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,,starred
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,,harold ramis
+utt12,"find me all of the movies that starred harold ramis and bill murray",2020-06-29T14:30:49.137966200,,,,,,,,Person,starred
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,find
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,,findMovie
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,,find
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,,,findMovie,3,0.15414378535097994
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,,,,,,quote
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,,,,,,baseball
+utt13,"find me a movie with a quote about baseball in it",2020-06-29T14:30:49.137966200,,,,,,movie
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,mississippus
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,,,,4,0.19342121673816362
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,,,,,,movie
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,,,,,,Location
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,,,,,,title
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,,,,,,,mississippi
+utt14,"what movies have mississippi in the title",2020-06-29T14:30:49.137966200,,,,,,,,Location,mississippi
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,show
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,showPerson
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,show
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,,showPerson,9,0.16486257490199954
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,,,,,show
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,,,,,science
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,,,,,Person
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,,,,,,steven spielberg
+utt15,"show me science fiction films directed by steven spielberg",2020-06-29T14:30:49.153585,,,,,,,,Person,steven spielberg
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,have
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,haveLocation
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,have
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,,haveLocation,6,0.1369534784069027
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,,,,,thriller
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,,,,,Location
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,,,,,coppolum
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,,,,,,sofia coppola
+utt16,"do you have any thrillers directed by sofia coppola",2020-06-29T14:30:49.169198900,,,,,,,,Location,sofia coppola

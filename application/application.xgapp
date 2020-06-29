@@ -78,6 +78,12 @@
       <gate.util.persistence.PersistenceManager-URLHolder>
         <urlString>$relpath$plugins/LingPipe/</urlString>
       </gate.util.persistence.PersistenceManager-URLHolder>
+      <gate.creole.Plugin-Maven>
+        <group>uk.ac.gate.plugins</group>
+        <artifact>stanford-corenlp</artifact>
+        <version>8.5.1</version>
+        <downloadListeners />
+      </gate.creole.Plugin-Maven>
     </localList>
     <collectionType>java.util.Collections$UnmodifiableSet</collectionType>
   </urlList>
@@ -413,6 +419,53 @@
               <mapType>gate.util.SimpleFeatureMapImpl</mapType>
               <localMap />
             </runtimeParams>
+            <resourceType>gate.stanford.NER</resourceType>
+            <resourceName>Stanford NER 02696</resourceName>
+            <initParams class="gate.util.persistence.MapPersistence">
+              <mapType>gate.util.SimpleFeatureMapImpl</mapType>
+              <localMap />
+            </initParams>
+            <features class="gate.util.persistence.MapPersistence">
+              <mapType>gate.util.SimpleFeatureMapImpl</mapType>
+              <localMap />
+            </features>
+          </pr>
+        </gate.util.persistence.AnalyserRunningStrategyPersistence>
+        <gate.util.persistence.AnalyserRunningStrategyPersistence>
+          <runMode>1</runMode>
+          <featureName />
+          <featureValue />
+          <pr class="gate.util.persistence.PRPersistence">
+            <runtimeParams class="gate.util.persistence.MapPersistence">
+              <mapType>gate.util.SimpleFeatureMapImpl</mapType>
+              <localMap>
+                <entry>
+                  <string>dependencyMode</string>
+                  <gate.stanford.DependencyMode>TypedCollapsed</gate.stanford.DependencyMode>
+                </entry>
+              </localMap>
+            </runtimeParams>
+            <resourceType>gate.stanford.Parser</resourceType>
+            <resourceName>StanfordParser 0001B</resourceName>
+            <initParams class="gate.util.persistence.MapPersistence">
+              <mapType>gate.util.SimpleFeatureMapImpl</mapType>
+              <localMap />
+            </initParams>
+            <features class="gate.util.persistence.MapPersistence">
+              <mapType>gate.util.SimpleFeatureMapImpl</mapType>
+              <localMap />
+            </features>
+          </pr>
+        </gate.util.persistence.AnalyserRunningStrategyPersistence>
+        <gate.util.persistence.AnalyserRunningStrategyPersistence>
+          <runMode>1</runMode>
+          <featureName />
+          <featureValue />
+          <pr class="gate.util.persistence.LanguageAnalyserPersistence">
+            <runtimeParams class="gate.util.persistence.MapPersistence">
+              <mapType>gate.util.SimpleFeatureMapImpl</mapType>
+              <localMap />
+            </runtimeParams>
             <resourceType>gate.jape.plus.Transducer</resourceType>
             <resourceName>JAPE-Plus Transducer cleanup</resourceName>
             <initParams class="gate.util.persistence.MapPersistence">
@@ -469,12 +522,16 @@
               <mapType>gate.util.SimpleFeatureMapImpl</mapType>
               <localMap>
                 <entry>
-                  <string>outputASName</string>
-                  <string>Final</string>
-                </entry>
-                <entry>
                   <string>tagASName</string>
                   <string>Original markups</string>
+                </entry>
+                <entry>
+                  <string>transferAllUnlessFound</string>
+                  <boolean>false</boolean>
+                </entry>
+                <entry>
+                  <string>outputASName</string>
+                  <string>Final</string>
                 </entry>
                 <entry>
                   <string>annotationTypes</string>
@@ -488,6 +545,7 @@
                       <string>Sentence</string>
                       <string>Token</string>
                       <string>MainVerb</string>
+                      <string>Dependency</string>
                     </localList>
                     <collectionType>java.util.ArrayList</collectionType>
                   </gate.util.persistence.CollectionPersistence>
@@ -519,12 +577,12 @@
                   <boolean>true</boolean>
                 </entry>
                 <entry>
-                  <string>trainingAlgorithm</string>
-                  <gate.plugin.learningframework.engines.AlgorithmClustering>MalletLDA_CLUS_MR</gate.plugin.learningframework.engines.AlgorithmClustering>
-                </entry>
-                <entry>
                   <string>tokenFeature</string>
                   <string>root</string>
+                </entry>
+                <entry>
+                  <string>trainingAlgorithm</string>
+                  <gate.plugin.learningframework.engines.AlgorithmClustering>MalletLDA_CLUS_MR</gate.plugin.learningframework.engines.AlgorithmClustering>
                 </entry>
                 <entry>
                   <string>inputASName</string>
@@ -538,7 +596,7 @@
                 </entry>
                 <entry>
                   <string>instanceType</string>
-                  <string>Intent</string>
+                  <string>Sentence</string>
                 </entry>
               </localMap>
             </runtimeParams>
@@ -573,9 +631,11 @@
         <gate.util.persistence.PRPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[12]/pr" />
         <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[13]/pr" />
         <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[14]/pr" />
-        <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[15]/pr" />
+        <gate.util.persistence.PRPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[15]/pr" />
         <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[16]/pr" />
         <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[17]/pr" />
+        <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[18]/pr" />
+        <gate.util.persistence.LanguageAnalyserPersistence reference="../../../strategiesList/localList/gate.util.persistence.AnalyserRunningStrategyPersistence[19]/pr" />
       </localList>
       <collectionType>java.util.ArrayList</collectionType>
     </prList>

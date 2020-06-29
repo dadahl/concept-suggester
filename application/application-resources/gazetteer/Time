@@ -1,4 +1,3 @@
-when:value=time
-what time:value=time
-what year:value=time
-
+when:value=lookForTime
+what time:value=lookForTime
+what year:value=lookForTime

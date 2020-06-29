@@ -1,11 +1,13 @@
 Multiphase: Entities
 Phases: 
-namedEntity
-noEntity
 sentence
+namedEntity
+compoundIntent
+noEntity
 verb
 mainVerb
 intent
+transferIntent
 noun
 nounGroup
 entity

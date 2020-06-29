@@ -9,8 +9,11 @@ Rule: Sentence
  //write out the sentence for debugging 
  String mydocContent = doc.getContent().toString(); 
  FeatureMap features = doc.getFeatures();
- 
- System.out.println(features + ":" + mydocContent);
+ System.out.println("");
+ System.out.println("Beginning sentence: ");
+ System.out.println(mydocContent);
+ System.out.println("Features are: " + features);
+
  // add document intents
  ArrayList intents = new ArrayList();
  ArrayList basicIntents = new ArrayList();

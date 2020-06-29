@@ -9,18 +9,18 @@ Rule: Intent
 -->
 
 {  
-System.out.println("matched");
+//System.out.println("matched");
 AnnotationSet intent = bindings.get("intent");  
 Annotation intentAnn = intent.iterator().next();  
 FeatureMap features = Factory.newFeatureMap();  
 String intentString = gate.Utils.cleanStringFor(doc,intent);
 features.put("string",intentString); 
-features.put("rule", "Intent3"); 
+features.put("rule", "Intent1"); 
 String root = (String) intentAnn.getFeatures().get("root"); 
 features.put("intent",root);
 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
-if(!intentsArray.contains(intentString)){
-   intentsArray.add(intentString);
+if(!intentsArray.contains(root)){
+   intentsArray.add(root);
 	 System.out.println("possible intent: " + root);
 }
 outputAS.add(intent.firstNode(), intent.lastNode(),  
@@ -41,7 +41,7 @@ corpusIntents.add("lookFor");
 String intentString = gate.Utils.cleanStringFor(doc,intent);
 System.out.println("intent string: " + intentString);
 features.put("string",intentString); 
-features.put("rule", "Intent1"); 
+features.put("rule", "Intent2"); 
 features.put("intent","LookFor"); 
 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
 if(!intentsArray.contains("lookFor")){
@@ -67,7 +67,7 @@ ArrayList corpusIntents = (ArrayList) corpusFeatures.get("corpusIntents");
 corpusIntents.add("inform");
 String intentString = gate.Utils.cleanStringFor(doc,intent);
 features.put("string",intentString); 
-features.put("rule", "Intent2"); 
+features.put("rule", "Intent3"); 
 features.put("intent","InformAbout"); 
 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
 if(!intentsArray.contains("inform")){
@@ -77,7 +77,6 @@ if(!intentsArray.contains("inform")){
 outputAS.add(intent.firstNode(), intent.lastNode(),  
                               "Intent", features);  
 }
-
 
 
 Rule:Intent

@@ -1,0 +1,22 @@
+Phase: TransferIntent
+Input: Sentence
+Options: control = appelt debug = true  
+
+Rule: TransferIntent
+({Sentence})
+:sentence
+-->
+{  
+AnnotationSet sentence = bindings.get("sentence");  
+Annotation sentenceAnn = sentence.iterator().next();  
+FeatureMap features = sentenceAnn.getFeatures();
+ArrayList intentsArray = (ArrayList) doc.getFeatures().get("intents");
+System.out.println("intentsArray is " + intentsArray);
+if(intentsArray.size() > 0){
+   String intent = (String) intentsArray.get(0);
+   if(intent != null){
+      features.put("rule", "TransferIntent1"); 
+      features.put("intent",intent);
+     }
+   }
+}

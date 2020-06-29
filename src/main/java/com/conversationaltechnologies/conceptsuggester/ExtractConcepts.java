@@ -56,12 +56,15 @@ public class ExtractConcepts {
             resultString = resultString + System.lineSeparator() + prefixString + COMPOUND_INTENTS_COMMAS + listItrIntents.next();
         }
         //get intent, class, confidence triples from topic classification
-        AnnotationSet intentClassConfidences = finalAnnotations.get("Intent");
+        AnnotationSet intentClassConfidences = finalAnnotations.get("Sentence");
         Iterator intentClassConfidencesIterator = intentClassConfidences.iterator();
         while (intentClassConfidencesIterator.hasNext()) {
             Annotation annotation = (Annotation) intentClassConfidencesIterator.next();
             FeatureMap annotationFeatures = annotation.getFeatures();
             String intent = (String) annotationFeatures.get("intent");
+            if(intent == null){
+                intent = "";
+            }
             Integer intentClass = (Integer) annotationFeatures.get("LDA_BestTopic");
             Double intentConfidence = (Double) annotationFeatures.get("LDA_BestTopicProb");
             resultString = resultString + System.lineSeparator() + prefixString + INTENT_CLASS_COMMAS + intent + "," + intentClass + "," + intentConfidence;

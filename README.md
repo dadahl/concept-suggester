@@ -6,7 +6,7 @@ An integration of Princeton's WordNet in the GATE 8.4 application allowed the to
 
 Intents are proposed based on verbs, possibly combined with their direct objects to create a "compound intent".
 
-The latest version has added a topic clustering step based on the GATE LearningFramework unsupervised Topic Clustering tools (https://gatenlp.github.io/gateplugin-LearningFramework/LF_TrainTopicModel). The topic clustering uses the Mallet Latent Dirichlet Allocation (LDA) algorithm (http://mallet.cs.umass.edu/). After the corpus is annotated in the rule-based part of the system, the topic model is trained and applied to the input corpus.
+There is now a topic clustering step based on the GATE LearningFramework unsupervised Topic Clustering tools (https://gatenlp.github.io/gateplugin-LearningFramework/LF_TrainTopicModel). The topic clustering uses the Mallet Latent Dirichlet Allocation (LDA) algorithm (http://mallet.cs.umass.edu/). After the corpus is annotated in the rule-based part of the system, the topic model is trained and applied to the input corpus.
 After the pipeline runs, there will be results in the application/application-resources/dataDirectory directory. These will include information like the top topic for each document. 
 
 It is still up to the developer to decide whether these suggestions are helpful.
@@ -41,7 +41,7 @@ possible value:starred:for entity:Person
 
 (Note that "starred" is misanalyzed as an entity value because it was part-of-speech tagged as an adjective)
 
-The results are saved in the working directory in the file "results.csv", which can be further analyzed with a spreadsheet. The results can also be saved in an "outputs" directory in GATE XML format. 
+The results are saved in the working directory in the file "results.csv", which can be further analyzed with a spreadsheet. The results can also be saved in an "outputs" directory in GATE XML format. The spreadsheet rows include the utterance, time of processing, intent and compound intent (if any), the best topic and the probability  of the best topic, entities, entity values, and entity/value pairs.
  
 This tool requires Java 9.
 Note that GATE itself (https://gate.ac.uk) is licensed under the LGPL.

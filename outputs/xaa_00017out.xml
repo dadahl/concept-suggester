@@ -1,0 +1,2 @@
+<Intent xmlns:gate="http://www.gate.ac.uk" gate:gateId="55" gate:annotMaxId="78" string="what movies star bruce willis" rule="Intent1" intent="bruce">what <Entity gate:gateId="62" string="movies star bruce" rule="Entity1" root="movie">movies star bruce</Entity> <Entity gate:gateId="63" string="willis" rule="Entity1" root="willi"><EntityValue gate:gateId="64" string="willis" rule="EntityValue6" root="willis"><EntityValuePair gate:gateId="65" string="willis" rule="EntityValuePair1" root="willi">willis</EntityValuePair></EntityValue></Entity> 
+</Intent>

@@ -1,5 +1,5 @@
 Phase: NamedEntity
-Input: Person PERSON Location LOCATION Organization ORGANIZATION
+Input: Person PERSON Location LOCATION Organization ORGANIZATION Date Money Percentage Time
 Options: control = appelt
 debug = true  
  
@@ -9,16 +9,34 @@ Rule: NamedEntity
 {Location} |
 {LOCATION} |
 {Organization} |
-{ORGANIZATION})
+{ORGANIZATION} |
+{Time}|
+{Money}|
+{Percentage} |
+{Date})
 :namedEntity
 -->
 
 {  
 // named entities will be values of entities, but not entities themselves, 
-//so we want to mark them
-AnnotationSet namedEntity = bindings.get("namedEntity");   
+// so we want to mark them and record what kind they were
+AnnotationSet namedEntity = bindings.get("namedEntity");  
+Annotation namedEntityAnn = namedEntity.iterator().next();  
+String annotationType = namedEntityAnn.getType();
+String annotationTypeLC = annotationType.toLowerCase();
 FeatureMap features = Factory.newFeatureMap();  
 features.put("rule", "namedEntity1");  
+features.put("root",annotationTypeLC);
+AnnotationSet docSet = doc.getAnnotations();
+AnnotationSet tokenSet = docSet.get("Token");
+Iterator tokenIterator = tokenSet.iterator();
+while(tokenIterator.hasNext()){
+    Annotation token = (Annotation) tokenIterator.next();
+    FeatureMap tokenFeatures = token.getFeatures();
+    tokenFeatures.put("namedEntityType",annotationTypeLC);
+    }
+
 outputAS.add(namedEntity.firstNode(), namedEntity.lastNode(),  
-                              "NamedEntity", features);  
+                             "NamedEntity", features); 
+                                 
 }

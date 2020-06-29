@@ -20,18 +20,10 @@ String capString = string.substring(0, 1).toUpperCase() + noSpaces.substring(1);
 String proper = (String) entityAnn.getFeatures().get("proper");
 if(proper.equals("false")){
    System.out.println("possible entity:" + string);
-	 ArrayList basicIntentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
-   Iterator intentsIterator = basicIntentsArray.iterator();
-	 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("intents");
-	 while(intentsIterator.hasNext()){
-	   String basicIntent = (String) intentsIterator.next();
-		 String compoundIntent = basicIntent + capString;
-		 intentsArray.add(compoundIntent);
-		 System.out.println("possible compound intent: " + compoundIntent);
-	 }
    features.put("rule", "Entity1"); 
    if(root != null){
     features.put("root",root); 
+   }
    }
    else{
    features.put("root",string);}
@@ -39,7 +31,6 @@ if(proper.equals("false")){
    outputAS.add(entity.firstNode(), entity.lastNode(),  
                               "Entity", features);  
 															}
-}
 
 Rule: Entity
 (({Token.category == nn,!NamedEntity}) | 
@@ -60,12 +51,6 @@ System.out.println("possible entity: " + string);
 ArrayList basicIntentsArray = (ArrayList) doc.getFeatures().get("basicIntents"); 
 Iterator intentsIterator = basicIntentsArray.iterator();
 ArrayList intentsArray = (ArrayList) doc.getFeatures().get("intents");
-while(intentsIterator.hasNext()){
- String basicIntent = (String) intentsIterator.next();
- String compoundIntent = basicIntent + capString;
- intentsArray.add(compoundIntent);
- System.out.println("possible compound intent: " + compoundIntent);
-}
 features.put("rule", "Entity2"); 
 if(root != null){
  features.put("root",root); 
@@ -122,7 +107,7 @@ Annotation entityAnn = entity.iterator().next();
 String string = gate.Utils.cleanStringFor(doc,entityAnn);
 String root = (String) entityAnn.getFeatures().get("root");
 FeatureMap features = Factory.newFeatureMap();  
-System.out.println("possible entity:" + "Date with value " + string);
+//System.out.println("possible entity:" + "Date with value " + string);
 features.put("root","Date"); 
 features.put("string",string); 
 features.put("rule", "Entity4"); 

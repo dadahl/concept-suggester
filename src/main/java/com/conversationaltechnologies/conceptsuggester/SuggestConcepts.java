@@ -23,13 +23,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -254,10 +251,10 @@ public class SuggestConcepts {
                     System.out.println("finished file");
                 }
             }
+             resultWriter.closeOutputFile();
         } catch (ExecutionException ex) {
             Logger.getLogger(SuggestConcepts.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("finished corpus");
-            resultWriter.closeOutputFile();
         }
     }
 
